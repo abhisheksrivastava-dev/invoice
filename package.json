@@ -1,0 +1,19 @@
+{
+  "name": "invoice",
+  "version": "1.0.0",
+  "description": "invoice for oz-india",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhisheksrivastava-dev/invoice.git"
+  },
+  "author": "@abhishekSrivastava",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abhisheksrivastava-dev/invoice/issues"
+  },
+  "homepage": "https://github.com/abhisheksrivastava-dev/invoice#readme"
+}
