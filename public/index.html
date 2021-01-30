@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>OZ-INDIA</title>
+    <link rel="icon" href="company_logo.PNG">
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js"></script>
+</head>
+
+<body>
+    <div class="form-style-5">
+        <img class= "potrait" src="company_logo.PNG">
+        <h1>OZ-INDIA Invoice Page</h1>
+        <form action="http://localhost:3000/invoice" method="POST" name='invoice'
+            onSubmit="return formValidation();">
+            <fieldset>
+                <legend><span class="number">1</span> Buyer Details</legend>
+                <input type="text" name="company_name" placeholder="Company Name *">
+                <input type="text" name="customer_name" placeholder="Customer Name *">
+                <input type="email" name="email" placeholder="Email *">
+                <input type="text" name="gstin" placeholder="GSTIN No. *">
+                <input type="number" name="mobile" placeholder="Phone No. *">
+                <input type="text" name="po_no" placeholder="P.O. No. ">
+                <input placeholder="P.O. Date " name="po_date" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                <textarea name="billing_address" placeholder="Billing Address *"></textarea>
+                <textarea name="shipping_address" placeholder="Shopping Address "></textarea>
+                <label for="job">State and Code:</label>
+                <select id="job" name="state">
+                    <optgroup label="State">
+                        <option value="andhra_pradesh">Andhra Pradesh(37)</option>
+                        <option value="arunachal_pradesh">Arunachal Pradesh(12)</option>
+                        <option value="assam">Assam(18)</option>
+                        <option value="bihar">Bihar(10)</option>
+                        <option value="chattisgarh">Chattisgarh(22)</option>
+                        <option value="delhi">Delhi(07)</option>
+                        <option value="goa">Goa(30)</option>
+                        <option value="gujarat">Gujarat(24)</option>
+                        <option value="haryana">Haryana(06)</option>
+                        <option value="himachal_pradesh">Himachal Pradesh(02)</option>
+                        <option value="jammu_and_kashmir">Jammu and Kashmir(01)</option>
+                        <option value="jharkhand">Jharkhand(20)</option>
+                        <option value="karnataka">Karnataka(29)</option>
+                        <option value="kerala">Kerala(32)</option>
+                        <option value="lakshadweep_islands">Lakshadweep Islands(31)</option>
+                        <option value="madhya_pradesh">Madhya Pradesh(23)</option>
+                        <option value="maharashtra">Maharashtra(27)</option>
+                        <option value="manipur">Manipur(14)</option>
+                        <option value="meghalaya">Meghalaya(17)</option>
+                        <option value="mizoram">Mizoram(15)</option>
+                        <option value="nagaland">Nagaland(13)</option>
+                        <option value="odisha">Odisha(21)</option>
+                        <option value="pondicherry">Pondicherry(34)</option>
+                        <option value="punjab">Punjab(03)</option>
+                        <option value="rajasthan">Rajasthan(08)</option>
+                        <option value="sikkim">Sikkim(11)</option>
+                        <option value="telangana">Telangana(36)</option>
+                        <option value="tripura">Tripura(16)</option>
+                        <option value="uttar_pradesh	">Uttar Pradesh(09)</option>
+                        <option value="uttarakhand">Uttarakhand(05)</option>
+                        <option value="west_bengal">West Bengal(19)</option>
+                    </optgroup>
+                    <optgroup label="Union Territory">
+                        <option value="andaman_and_nicobar_islands">Andaman and Nicobar Islands(35)</option>
+                        <option value="chandigarh">Chandigarh(04)</option>
+                        <option value="dadra">Dadra & Nagar Haveli and Daman & Diu(26)</option>
+                        <option value="ladakh">Ladakh(38)</option>
+                        <option value="other">Other Territory(97)</option>
+                    </optgroup>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend><span class="number">2</span> Product Details</legend>
+                <input type="text" name="invoice_no" placeholder="Invoice No.">
+            </fieldset>
+            <fieldset>
+                <legend><span class="number">3</span> Other Details</legend>
+                <input type="text" name="invoice_no" placeholder="Invoice No.">
+                <input placeholder="Invoice Date" name="invoice_date" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                <label id="reverse_charge">Reverse Charge:
+                <input type="radio" name="reverse_charge" value="Y" /><span>Yes</span>
+                <input type="radio" name="reverse_charge" value="N" /><span>No</span></label>
+                <br>
+                <input type="text" name="transport_mode" placeholder="Transport Mode">
+                <input type="text" name="vehicle_no" placeholder="Vehicle No. ">
+                <input type="text" name="supply_place" placeholder="Place of Supply">
+                <input placeholder="Date of Supply" name="supply_date" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+            </fieldset>
+            <input type="submit" value="Generate Invoice" />
+        </form>
+    </div>
+</body>
+
+</html>
