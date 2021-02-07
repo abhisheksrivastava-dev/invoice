@@ -11,7 +11,6 @@
 
 <body>
     <div class="form-style-5">
-        <!-- <img class= "potrait" src="../pic/company_logo.PNG"> -->
         <h1>OZ-INDIA Invoice Page</h1>
         <form onsubmit="return formValidation()" method="POST" action="http://localhost:3000/invoice" name='invoice'>
             <fieldset>
@@ -63,7 +62,8 @@
                     <optgroup label="Union Territory">
                         <option value="Andaman and Nicobar Islands(35)">Andaman and Nicobar Islands(35)</option>
                         <option value="Chandigarh(04)">Chandigarh(04)</option>
-                        <option value="Dadra & Nagar Haveli and Daman & Diu(26)">Dadra & Nagar Haveli and Daman & Diu(26)</option>
+                        <option value="Dadra & Nagar Haveli and Daman & Diu(26)">Dadra & Nagar Haveli and Daman &
+                            Diu(26)</option>
                         <option value="Ladakh(38)">Ladakh(38)</option>
                         <option value="Other Territory(97)">Other Territory(97)</option>
                     </optgroup>
@@ -71,188 +71,42 @@
             </fieldset>
             <fieldset>
                 <legend><span class="number">2</span> Product Details</legend>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <table id="productTable" class="table table-bordered table-condensed table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Edit</th>
-                                        <th>Product Name</th>
-                                        <th>HSN Code</th>
-                                        <th>Amount</th>
-                                        <th>Discount</th>
-                                        <th>Net Amount</th>
-                                        <th>Delete</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="panel panel-primary">
-                                <!-- <div class="panel-heading">
-                                    Product Information
-                                </div> -->
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        <label for="productname">
-                                            Product Name
-                                        </label>
-                                        <input type="text" class="form-control" id="productname" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="hsn_code">
-                                            HSN Code
-                                        </label>
-                                        <input type="text" class="form-control" id="hsn_code" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="amount">
-                                            Amount
-                                        </label>
-                                        <input type="number" class="form-control" id="amount" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="discount">
-                                            Discount
-                                        </label>
-                                        <input type="number" class="form-control" id="discount" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="net_amount">
-                                            Net Amount
-                                        </label>
-                                        <input type="number" class="form-control" id="net_amount" />
-                                    </div>
-                                </div>
-                                <div class="panel-footer">
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <button type="button" id="updateButton" class="btn btn-primary" onclick="productUpdate();">
-                                                Add
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <script>
-                    // Next id for adding a new Product
-                    var nextId = 1;
-                    // ID of Product currently editing
-                    var activeId = 0;
-
-                    function productDisplay(ctl) {
-                        var row = $(ctl).parents("tr");
-                        var cols = row.children("td");
-
-                        activeId = $($(cols[0]).children("button")[0]).data("id");
-                        $("#productname").val($(cols[1]).text());
-                        $("#hsn_code").val($(cols[2]).text());
-                        $("#amount").val($(cols[3]).text());
-                        $("discount").val($(cols[4]).text());
-                        $("net_amount").val($(cols[5]).text());
-
-                        // Change Update Button Text
-                        $("#updateButton").text("Update");
-                    }
-
-                    function productUpdate() {
-                        if ($("#updateButton").text() == "Update") {
-                            productUpdateInTable(activeId);
-                        } else {
-                            productAddToTable();
-                        }
-
-                        // Clear form fields
-                        formClear();
-
-                        // Focus to product name field
-                        $("#productname").focus();
-                    }
-
-                    // Add product to <table>
-                    function productAddToTable() {
-                        // First check if a <tbody> tag exists, add one if not
-                        if ($("#productTable tbody").length == 0) {
-                            $("#productTable").append("<tbody></tbody>");
-                        }
-
-                        // Append product to table
-                        $("#productTable tbody").append(
-                            productBuildTableRow(nextId));
-
-                        // Increment next ID to use
-                        nextId += 1;
-                    }
-
-                    // Update product in <table>
-                    function productUpdateInTable(id) {
-                        // Find Product in <table>
-                        var row = $("#productTable button[data-id='" + id + "']")
-                            .parents("tr")[0];
-
-                        // Add changed product to table
-                        $(row).after(productBuildTableRow(id));
-                        // Remove original product
-                        $(row).remove();
-
-                        // Clear form fields
-                        formClear();
-
-                        // Change Update Button Text
-                        $("#updateButton").text("Add");
-                    }
-
-                    // Build a <table> row of Product data
-                    function productBuildTableRow(id) {
-                        var ret =
-                            "<tr>" +
-                            "<td>" +
-                            "<button type='button' " +
-                            "onclick='productDisplay(this);' " +
-                            "class='btn btn-default' " +
-                            "data-id='" + id + "'>" +
-                            "<span class='glyphicon glyphicon-edit' />" +
-                            "</button>" +
-                            "</td>" +
-                            "<td>" + $("#productname").val() + "</td>" +
-                            "<td>" + $("#hsn_code").val() + "</td>" +
-                            "<td>" + $("#amount").val() + "</td>" +
-                            "<td>" + $("#discount").val() + "</td>" +
-                            "<td>" + $("#net_amount").val() + "</td>" +
-                            "<td>" +
-                            "<button type='button' " +
-                            "onclick='productDelete(this);' " +
-                            "class='btn btn-default' " +
-                            "data-id='" + id + "'>" +
-                            "<span class='glyphicon glyphicon-remove' />" +
-                            "</button>" +
-                            "</td>" +
-                            "</tr>"
-
-                        return ret;
-                    }
-
-                    // Delete product from <table>
-                    function productDelete(ctl) {
-                        $(ctl).parents("tr").remove();
-                    }
-
-                    // Clear form fields
-                    function formClear() {
-                        $("#productname").val("");
-                        $("#hsn_code").val("");
-                        $("#amount").val("");
-                        $("#discount").val("");
-                        $("#net_amount").val("");
-                    }
-                </script>
+                <table id="productTable" name="data_form">
+                    <thead>
+                        <tr>
+                            <th>Edit</th>
+                            <th>Product Name</th>
+                            <th>HSN Code</th>
+                            <th>Amount</th>
+                            <th>Discount</th>
+                            <th>Net Amount</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                </table>
+                <label for="productname">
+                    Product Name
+                </label>
+                <input type="text" class="form-control" id="productname" />
+                <label for="hsn_code">
+                    HSN Code
+                </label>
+                <input type="text" class="form-control" id="hsn_code" />
+                <label for="amount">
+                    Amount
+                </label>
+                <input type="number" class="form-control" name="amount" id="amount" />
+                <label for="discount">
+                    Discount
+                </label>
+                <input type="number" class="form-control" name="discount" id="discount" onChange="updateInput()" />
+                <label for="net_amount">
+                    Net Amount
+                </label>
+                <input type="number" class="form-control" name="net_amount" id="net_amount" />
+                <button type="button" id="updateButton" class="btn btn-primary" onclick="productUpdate();">
+                    Add
+                </button>
             </fieldset>
             <fieldset>
                 <legend><span class="number">3</span> Other Details</legend>

@@ -1,28 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initialscale=1.0">
-<title>Document</title>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </head>
+
 <body>
-<form onsubmit="return validateTheForm()" method="GET" action="https://mail.google.com/mail/">
-<br/>
-<input type="text" id="txtInput" value=""/>
-<input type="submit" value="search"/>
-</form>
-<script>
-   function validateTheForm(){
-      var validation = (document.getElementById('txtInput').value == 'gmail');
-      if(!validation){
-         alert('Something went wrong...Plese write gmail intext box and click');
-         return false;
-      }
-      return true;
-   }
-</script>
+    <table>
+
+
+        <tr>
+            <td><input type="checkbox" class="tot_amount" value="10" id="filled-in-box1" onclick="chaked1();"> 10
+            </td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" class="tot_amount" value="20" id="filled-in-box1" onclick="chaked1();"> 20
+            </td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" class="tot_amount" value="30" id="filled-in-box1" onclick="chaked1();"> 30
+            </td>
+        </tr>
+        <tr>
+
+        </tr>
+
+        <tr>
+            <td>Total
+                <input type="text" id="cost" readonly>
+            </td>
+        </tr>
+        <tr>
+            <td width="98">Taxes</td>
+            <td width="115">Discount</td>
+            <td width="118">Default price</td>
+        </tr>
+        <tr>
+            <td><select class="select" name="taxes" onChange="updateInput()">
+      <option value="no" selected>no taxes</option>
+      <option value="19">19% taxes</option> <!-- <====================== -->
+    </select></td>
+            <td><select class="select" name="discount" onChange="updateInput()">
+        <option value="0" selected>0% discount</option>
+      <option value="5">5% discount</option>
+      <option value="10">10% discount</option>
+      <option value="20">20% discount</option>
+    </select></td>
+            <td><input type="text" class="select" name="cost" id="cost" value="1000"></td>
+        </tr>
+        <tr>
+            <td>Price after discount</td>
+            <td>Taxes</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td><input type="text" name="price" value="0"></td>
+            <td><input type="text" name="ttaxes" value="0"></td>
+            <!-- <====================== -->
+        </tr>
+    </table>
+
+    <script>
+        function chaked1() {
+            $("#filled-in-box1").click(function(event) {
+                if (this.checked) {
+                    document.getElementById("one").value = document.getElementById("filled-in-box1").value;
+                    document.getElementById('one').readOnly = false;
+                } else {
+                    document.getElementById("one").value = "0";
+                    document.getElementById('one').readOnly = true;
+                }
+
+            });
+        }
+    </script>
+
+    <script>
+        function chaked2() {
+            $("#filled-in-box2").click(function(event) {
+                if (this.checked) {
+                    document.getElementById("two").value = document.getElementById("filled-in-box2").value;
+                    document.getElementById('two').readOnly = false;
+                } else {
+                    document.getElementById("two").value = "0";
+                    document.getElementById('two').readOnly = true;
+                }
+            });
+
+        }
+    </script>
+
+
+    <script>
+        $(".tot_amount").click(function(event) {
+            var total = 0;
+            $(".tot_amount:checked").each(function() {
+                total += parseInt($(this).val());
+            });
+
+            if (total == 0) {
+                $('#cost').val('');
+            } else {
+                $('#cost').val(total);
+            }
+        });
+
+
+        function updateInput() {
+            var discount = document.getElementsByName("discount")[0].value;
+            var cost = document.getElementsByName("cost")[0].value;
+            document.getElementsByName("price")[0].value = cost - (cost * (discount / 100));
+
+            var taxes = document.getElementsByName("taxes")[0].value; // <======================
+            if (isNaN(taxes)) // IF "no taxes" IS SELECTED...
+                document.getElementsByName("ttaxes")[0].value = 0;
+            else {
+                cost = document.getElementsByName("price")[0].value;
+                document.getElementsByName("ttaxes")[0].value = (cost * (taxes / 100));
+            }
+        }
+    </script>
+
+
+
 </body>
+
 </html>

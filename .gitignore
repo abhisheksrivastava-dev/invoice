@@ -1,4 +1,10 @@
 node_modules/
+public/demo.css
+public/demo.js
+public/form.css
+public/front.html
+public/front.js
+public/test.html
 # Logs
 logs
 *.log
