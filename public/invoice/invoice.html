@@ -78,8 +78,9 @@
                             <th>Product Name</th>
                             <th>HSN Code</th>
                             <th>Amount</th>
-                            <th>Discount</th>
+                            <th>qty</th>
                             <th>Net Amount</th>
+                            <th>Tax</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -96,14 +97,22 @@
                     Amount
                 </label>
                 <input type="number" class="form-control" name="amount" id="amount" />
-                <label for="discount">
-                    Discount
+                <label for="qty">
+                    Quantity
                 </label>
-                <input type="number" class="form-control" name="discount" id="discount" onChange="updateInput()" />
+                <input type="number" class="form-control" name="qty" id="qty" onChange="updateInput()" />
                 <label for="net_amount">
                     Net Amount
                 </label>
                 <input type="number" class="form-control" name="net_amount" id="net_amount" />
+                <label for="tax">Tax Applied:</label>
+                <select id="tax" name="tax">
+                    <optgroup label="tax">
+                        <option value="up">In U.P.</option>
+                        <option value="oup">IGST</option>
+                        <option value="export">Export</option>
+                    </optgroup>
+                </select>
                 <button type="button" id="updateButton" class="btn btn-primary" onclick="productUpdate();">
                     Add
                 </button>
@@ -118,7 +127,6 @@
                 <br>
                 <input type="text" name="transport_mode" placeholder="Transport Mode">
                 <input type="text" name="vehicle_no" placeholder="Vehicle No. ">
-                <input type="text" name="supply_place" placeholder="Place of Supply">
                 <input placeholder="Date of Supply" name="supply_date" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
             </fieldset>
             <input type="submit" value="Generate Invoice" />

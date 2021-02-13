@@ -32,8 +32,9 @@ function productDisplay(ctl) {
     $("#productname").val($(cols[1]).text());
     $("#hsn_code").val($(cols[2]).text());
     $("#amount").val($(cols[3]).text());
-    $("discount").val($(cols[4]).text());
+    $("qty").val($(cols[4]).text());
     $("net_amount").val($(cols[5]).text());
+    $("tax").val($(cols[5]).text());
 
     // Change Update Button Text
     $("#updateButton").text("Update");
@@ -101,8 +102,9 @@ function productBuildTableRow(id) {
         "<td>" + "<input name='p_name_" + id + "' value=" + $("#productname").val() + ">" + "</td>" +
         "<td>" + "<input name='h_name_" + id + "' value=" + $("#hsn_code").val() + ">" + "</td>" +
         "<td>" + "<input name='amount_" + id + "' value=" + $("#amount").val() + ">" + "</td>" +
-        "<td>" + "<input name='discont_" + id + "' value=" + $("#discount").val() + ">" + "</td>" +
+        "<td>" + "<input name='discont_" + id + "' value=" + $("#qty").val() + ">" + "</td>" +
         "<td>" + "<input name='net_amount_" + id + "' value=" + $("#net_amount").val() + ">" + "</td>" +
+        "<td>" + "<input name='tax_" + id + "' value=" + $("#tax").val() + ">" + "</td>" +
         "<td>" +
         "<button type='button' " +
         "onclick='productDelete(this);' " +
@@ -126,14 +128,15 @@ function formClear() {
     $("#productname").val("");
     $("#hsn_code").val("");
     $("#amount").val("");
-    $("#discount").val("");
+    $("#qty").val("");
     $("#net_amount").val("");
+    $("#tax").val("");
 }
 
 function updateInput() {
-    var discount = document.getElementsByName("discount")[0].value;
+    var qty = document.getElementsByName("qty")[0].value;
     var amount = document.getElementsByName("amount")[0].value;
-    document.getElementsByName("net_amount")[0].value = amount - (amount * (discount / 100));
+    document.getElementsByName("net_amount")[0].value = amount * qty;
 }
 
 function length_validation(uid, len) {
