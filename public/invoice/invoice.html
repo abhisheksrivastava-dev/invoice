@@ -24,6 +24,7 @@
                 <input placeholder="P.O. Date " name="po_date" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
                 <textarea name="billing_address" placeholder="Billing Address "></textarea>
                 <textarea name="shipping_address" placeholder="Shopping Address "></textarea>
+                <input type="number" name="shipper_mobile" placeholder="Shipper Phone No. *">
                 <label for="job">State and Code:</label>
                 <select id="job" name="state">
                     <optgroup label="State">
@@ -88,23 +89,23 @@
                 <label for="productname">
                     Product Name
                 </label>
-                <input type="text" class="form-control" id="productname" />
+                <input type="text" id="productname" />
                 <label for="hsn_code">
                     HSN Code
                 </label>
-                <input type="text" class="form-control" id="hsn_code" />
+                <input type="text" id="hsn_code" />
                 <label for="amount">
                     Amount
                 </label>
-                <input type="number" class="form-control" name="amount" id="amount" />
+                <input type="number" name="amount" id="amount" />
                 <label for="qty">
                     Quantity
                 </label>
-                <input type="number" class="form-control" name="qty" id="qty" onChange="updateInput()" />
+                <input type="number" name="qty" id="qty" onChange="updateInput()" />
                 <label for="net_amount">
                     Net Amount
                 </label>
-                <input type="number" class="form-control" name="net_amount" id="net_amount" />
+                <input type="number" name="net_amount" id="net_amount" />
                 <label for="tax">Tax Applied:</label>
                 <select id="tax" name="tax">
                     <optgroup label="tax">
@@ -128,6 +129,7 @@
                 <input type="text" name="transport_mode" placeholder="Transport Mode">
                 <input type="text" name="vehicle_no" placeholder="Vehicle No. ">
                 <input placeholder="Date of Supply" name="supply_date" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                <input type="number" name="packageing" placeholder="PACKAGING CHARGE">
             </fieldset>
             <input type="submit" value="Generate Invoice" />
         </form>

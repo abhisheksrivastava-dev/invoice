@@ -4,13 +4,16 @@ function formValidation() {
     var email = document.invoice.email;
     var gstin = document.invoice.gstin;
     var mobile = document.invoice.mobile;
+    var smobile = document.invoice.shipper_mobile;
     if (allLetter(company_name)) {
         if (allLetter(customer_name)) {
             if (ValidateEmail(email)) {
                 if (length_validation(gstin, 15)) {
                     if (allnumeric(mobile)) {
                         if (length_validation(mobile, 10)) {
-                            return true;
+                            if (length_validation(smobile, 10)) {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -51,7 +54,7 @@ function productUpdate() {
     formClear();
 
     // Focus to product name field
-    $("#productname").focus();
+    // $("#productname").focus();
 }
 
 // Add product to <table>
@@ -151,14 +154,11 @@ function length_validation(uid, len) {
 }
 
 function allLetter(uname, print) {
-    var letters = /^[A-Za-z]+$/;
-    console.log(uname);
-    if (uname.value.match(letters)) {
-        return true;
-    } else {
+    if (uname.value.length == 0) {
         alert(`${uname.getAttribute("placeholder")} should not be empty`);
-        uname.focus();
         return false;
+    } else {
+        return true;
     }
 }
 

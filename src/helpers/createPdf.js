@@ -51,13 +51,13 @@ function generateInformation(doc, invoice) {
         .fontSize(10)
         .text("Invoice Number:", 50, customerInformationTop)
         .font("Helvetica-Bold")
-        .text(invoice.invoice_nr, 150, customerInformationTop)
+        .text(invoice.details.number, 150, customerInformationTop)
         .font("Helvetica")
         .text("Invoice Date:", 50, customerInformationTop + 15)
-        .text(formatDate(new Date()), 150, customerInformationTop + 15)
+        .text(formatDate(new Date()) || invoice.details.date, 150, customerInformationTop + 15)
         .text("Reverse Charge:", 50, customerInformationTop + 30)
         .text(
-            formatCurrency(invoice.subtotal - invoice.paid),
+            invoice.details.reverse_charge,
             150,
             customerInformationTop + 30
         )
@@ -71,13 +71,13 @@ function generateInformation(doc, invoice) {
     .font("Helvetica-Bold")
         .text("Transport Mode:", 300, customerInformationTop)
         .font("Helvetica-Bold")
-        .text(invoice.invoice_nr, 450, customerInformationTop)
+        .text(invoice.details.transport, 450, customerInformationTop)
         .font("Helvetica")
         .text("Vehicle Number:", 300, customerInformationTop + 15)
-        .text(formatDate(new Date()), 450, customerInformationTop + 15)
+        .text(invoice.details.vehicleNo, 450, customerInformationTop + 15)
         .text("Date of Supply:", 300, customerInformationTop + 30)
         .text(
-            invoice.subtotal,
+            invoice.details.supplyDate,
             450,
             customerInformationTop + 30
         )
@@ -108,59 +108,49 @@ function generateCustomerInformation(doc, invoice) {
         .fontSize(10)
         // .text("er:", 50, customerInformationTop)
         // .font("Helvetica-Bold")
-        .text(invoice.customer, 50, customerInformationTop) // customername 
-        .text(invoice.party, 50, customerInformationTop + 15) // companyname
+        .text(invoice.billing.customerName, 50, customerInformationTop) // customername 
+        .text(invoice.billing.companyName, 50, customerInformationTop + 15) // companyname
         // .font("Helvetica")
         // .text("Invoice Date:", 50, customerInformationTop + 15)
-        .text(invoice.shipping.baddress, 50, customerInformationTop + 30, { width: 250 }) //Address
+        .text(invoice.billing.address, 50, customerInformationTop + 30, { width: 250 }) //Address
         // .text(invoice.shipping.city, 50, customerInformationTop + 45) //Address
         .text("GSTIN No:", 50, customerInformationTop + 60)
         .text(
-            formatCurrency(invoice.subtotal - invoice.paid),
-            150,
+            invoice.billing.gstin,
+            120,
             customerInformationTop + 60
         ) // GSTIN
         .text("Email:", 50, customerInformationTop + 75)
         .text(
-            formatCurrency(invoice.subtotal - invoice.paid),
-            150,
+            invoice.billing.email,
+            120,
             customerInformationTop + 75
         ) // Email
         .text("M:", 50, customerInformationTop + 90)
         .text(
-            formatCurrency(invoice.subtotal - invoice.paid),
-            150,
+            invoice.billing.mobile,
+            120,
             customerInformationTop + 90
         ) // Mobile
         .text("State(Code):", 50, customerInformationTop + 105)
         .text(
-            formatCurrency(invoice.subtotal - invoice.paid),
-            150,
+            invoice.billing.state,
+            120,
             customerInformationTop + 105
         ) // State(Code)
 
     .font("Helvetica-Bold")
         // .text("Transport Mode:", 300, customerInformationTop)
         .font("Helvetica")
-        .text(invoice.customer, 300, customerInformationTop) // customername 
-        .text(invoice.party, 300, customerInformationTop + 15) // companyname
-        // .font("Helvetica")
-        // .text("Invoice Date:", 50, customerInformationTop + 15)
-        .text(invoice.shipping.baddress, 300, customerInformationTop + 30) //Address
+        .text(invoice.shipping.address, 300, customerInformationTop) //Address
         // .text(invoice.shipping.city, 300, customerInformationTop + 45) //Address
         .font("Helvetica")
-        .text("M:", 300, customerInformationTop + 60) // mobile
-        .text(formatDate(new Date()), 450, customerInformationTop + 60)
-        .text("State(Code):", 300, customerInformationTop + 75)
-        .text(
-            formatCurrency(invoice.subtotal - invoice.paid),
-            450,
-            customerInformationTop + 75
-        ) //State(Code)
+        .text("M:", 300, customerInformationTop + 75) // mobile
+        .text(invoice.shipping.mobile, 400, customerInformationTop + 75)
         .text("P.O. No.:", 300, customerInformationTop + 90)
-        .text(formatDate(new Date()), 450, customerInformationTop + 90) // PO no.
+        .text(invoice.shipping.poNo, 400, customerInformationTop + 90) // PO no.
         .text("P.O. Date:", 300, customerInformationTop + 105)
-        .text(formatDate(new Date()), 450, customerInformationTop + 105) // PO Date
+        .text(invoice.shipping.poDate, 400, customerInformationTop + 105) // PO Date
         .moveDown();
 
     generateHr(doc, customerInformationTop + 120);
@@ -185,18 +175,19 @@ function generateInvoiceTable(doc, invoice) {
     generateHr(doc, invoiceTableTop + 10);
     doc.font("Helvetica");
 
-    for (i = 0; i < invoice.items.length; i++) {
-        const item = invoice.items[i];
+    for (i = 1; i < invoice.items.length; i++) {
+        // const item = invoice.items[i];
+        console.log(invoice.items[i].pd)
         var position = invoiceTableTop + (i + 1) * 15;
         generateTableRow(
             doc,
             position,
-            item.item,
-            item.description,
-            item.quantity,
-            formatCurrency(item.amount / item.quantity),
-            item.quantity,
-            formatCurrency(item.amount),
+            invoice.items[i].pd,
+            invoice.items[i].hsn,
+            invoice.items[i].qty,
+            invoice.items[i].rate,
+            invoice.items[i].tax,
+            invoice.items[i].amountNet,
             'Y'
         );
         invoiceTableTop = invoiceTableTop + 10
@@ -213,7 +204,7 @@ function generateInvoiceTable(doc, invoice) {
         "",
         "",
         "",
-        formatCurrency(invoice.subtotal)
+        invoice.packageing
     );
 
     const subtotalPosition = packaging + 15;
@@ -225,7 +216,7 @@ function generateInvoiceTable(doc, invoice) {
         "",
         "",
         "",
-        formatCurrency(invoice.paid)
+        invoice.totalAmount
     );
 
     const paidToDatePosition = subtotalPosition + 15;
@@ -237,7 +228,7 @@ function generateInvoiceTable(doc, invoice) {
         "",
         "",
         "",
-        formatCurrency(invoice.subtotal - invoice.paid)
+        invoice.totalTax
     );
 
     const duePosition = paidToDatePosition + 15;
@@ -250,7 +241,21 @@ function generateInvoiceTable(doc, invoice) {
         "",
         "",
         "",
-        formatCurrency(invoice.subtotal - invoice.paid)
+        invoice.totalTaxAmount
+    );
+    const word = duePosition + 15;
+    doc.font("Helvetica-Bold");
+    generateTableRow(
+        doc,
+        word,
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        invoice.totalAmountWord
     );
     doc.font("Helvetica");
 }
@@ -264,16 +269,18 @@ function generateTableRow(
     Rate,
     Tax,
     Net_Amount,
-    filter
+    filter,
+    value
 ) {
     const table = 50
     doc
         .fontSize(10)
-        .text(Product_Description, table, y, { width: 250 })
-        .text(HSN_Code, table + 240, y)
-        .text(Qty, table + 300, y)
-        .text(Rate, table + 330, y)
-        .text(Tax, table + 390, y)
+        .text(value, table, y)
+        .text(Product_Description, table, y, { width: 200 })
+        .text(HSN_Code, table + 200, y)
+        .text(Qty, table + 260, y)
+        .text(Rate, table + 300, y)
+        .text(Tax, table + 360, y, { width: 50 })
         .text(Net_Amount, table + 420, y);
     if (filter == 'Y') {
         generateHr(doc, y + 20);
