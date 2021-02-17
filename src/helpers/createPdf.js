@@ -20,19 +20,14 @@ function generateHeader(doc) {
         .image("E:\\githubProject\\invoice\\src\\helpers\\company_logo.png", 475, spaceValue, { width: 70 })
         .image("E:\\githubProject\\invoice\\src\\helpers\\iso.png", 50, spaceValue, { width: 55 })
         .image("E:\\githubProject\\invoice\\src\\helpers\\ce.png", 100, spaceValue, { width: 50 })
-        // .fillColor("#444444")
-        // .fontSize(25)
-        // .text("OZ-INDIA", 140, 75)
         .fillColor("#444444")
         .fontSize(20)
         .text("OZONE INDIA TECHNOLOGY", 50, spaceValue - 5, { align: "center" })
         .fontSize(10)
         .text("BH-372 SECTOR-12 PRATAP VIHAR GHAZIABAD-201009(U.P.)", 50, spaceValue + 15, { align: "center" })
-        // .text("", 200, 80, { align: "right" })
         .text("GSTIN No :- 09BSZPS3331L1ZT", 50, spaceValue + 30, { align: "center" })
         .text("M: +91-9650017943,9599500580", 50, spaceValue + 45, { align: "center" })
         .text("Email:- ozoneindiatechnology@gmail.com Website:- www.ozoneindiatechnology.com", 50, spaceValue + 60, { align: "center" })
-        // .text("", 50, 125, { align: "center" })
         .moveDown();
     generateHr(doc, spaceValue + 75);
 }
@@ -106,14 +101,9 @@ function generateCustomerInformation(doc, invoice) {
 
     doc
         .fontSize(10)
-        // .text("er:", 50, customerInformationTop)
-        // .font("Helvetica-Bold")
         .text(invoice.billing.customerName, 50, customerInformationTop) // customername 
         .text(invoice.billing.companyName, 50, customerInformationTop + 15) // companyname
-        // .font("Helvetica")
-        // .text("Invoice Date:", 50, customerInformationTop + 15)
         .text(invoice.billing.address, 50, customerInformationTop + 30, { width: 250 }) //Address
-        // .text(invoice.shipping.city, 50, customerInformationTop + 45) //Address
         .text("GSTIN No:", 50, customerInformationTop + 60)
         .text(
             invoice.billing.gstin,
@@ -140,10 +130,8 @@ function generateCustomerInformation(doc, invoice) {
         ) // State(Code)
 
     .font("Helvetica-Bold")
-        // .text("Transport Mode:", 300, customerInformationTop)
         .font("Helvetica")
         .text(invoice.shipping.address, 300, customerInformationTop) //Address
-        // .text(invoice.shipping.city, 300, customerInformationTop + 45) //Address
         .font("Helvetica")
         .text("M:", 300, customerInformationTop + 75) // mobile
         .text(invoice.shipping.mobile, 400, customerInformationTop + 75)
@@ -176,7 +164,6 @@ function generateInvoiceTable(doc, invoice) {
     doc.font("Helvetica");
 
     for (i = 1; i < invoice.items.length; i++) {
-        // const item = invoice.items[i];
         console.log(invoice.items[i].pd)
         var position = invoiceTableTop + (i + 1) * 15;
         generateTableRow(
@@ -191,8 +178,6 @@ function generateInvoiceTable(doc, invoice) {
             'Y'
         );
         invoiceTableTop = invoiceTableTop + 10
-            // generateHr(doc, position + 20);
-            // invoiceTableTop = invoiceTableTop + 20
     }
 
     const packaging = invoiceTableTop + (i + 1) * 15;
@@ -255,7 +240,7 @@ function generateInvoiceTable(doc, invoice) {
         "",
         "",
         "",
-        invoice.totalAmountWord
+        "Amount in Words: " + invoice.totalAmountWord
     );
     doc.font("Helvetica");
 }

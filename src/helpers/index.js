@@ -1,17 +1,13 @@
 const { createInvoice } = require("./createPdf");
 
-function invoice(data) {
-    console.log(data)
+function invoice(data, invoiceNo) {
     var obj = JSON.parse(JSON.stringify(data));
     var keys = Object.keys(obj);
     var j = 1;
     for (var i = 0; i < keys.length; i++) {
         if ((keys[i]).includes(j.toString())) {
-            // console.log(keys[i])
-            // console.log(' iam in ');
             j = j + 1
         }
-        // console.log(keys[i]);
     }
     var totalTax = 0
     var totalAmount = 0
@@ -33,14 +29,13 @@ function invoice(data) {
             tax = 'N/A'
         }
         item[i] = {
-                pd: data['p_name_' + i.toString()],
-                hsn: data['h_name_' + i.toString()],
-                qty: data['discont_' + i.toString()],
-                rate: data['amount_' + i.toString()],
-                tax,
-                amountNet
-            }
-            // console.log(item[i].pd)
+            pd: data['p_name_' + i.toString()],
+            hsn: data['h_name_' + i.toString()],
+            qty: data['discont_' + i.toString()],
+            rate: data['amount_' + i.toString()],
+            tax,
+            amountNet
+        }
         totalTax = totalTax + amountTax;
         totalAmount = totalAmount + parseInt(data['net_amount_' + i.toString()], 10);
         totalTaxAmount = totalTaxAmount + amountNet;
@@ -54,7 +49,7 @@ function invoice(data) {
 
     const invoice = {
         details: {
-            number: data.invoice_no,
+            number: data.invoice_no || invoiceNo,
             date: data.invoice_date,
             reverse_charge: data.reverse_charge,
             transport: data.transport_mode,
@@ -83,10 +78,7 @@ function invoice(data) {
         totalAmount,
         totalAmountWord
     };
-
-    // console.log(invoice.items[1].pd)
-
-    createInvoice(invoice, "E:\\githubProject\\invoice\\invoice\\invoice2.pdf");
+    createInvoice(invoice, `E:\\githubProject\\invoice\\invoice\\taxInvoice_${invoiceNo}.pdf`);
 }
 
 function price_in_words(price) {
