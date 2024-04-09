@@ -31,8 +31,7 @@
     "path": "^0.12.7",
     "pdfkit": "^0.11.0",
     "sharp": "^0.27.1",
-    "validator": "^13.5.2",
-    "xlsx": "^0.16.9"
+    "validator": "^13.5.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
